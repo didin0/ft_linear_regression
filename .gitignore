@@ -1,0 +1,23 @@
+# Dossier de build CMake
+/build/
+/.cache/
+
+# Fichiers générés par le programme train (le modèle)
+thetas.txt
+model.csv
+model.json
+
+# Fichiers de configuration IDE
+.vscode/
+.idea/
+
+# Fichiers de système d'exploitation
+.DS_Store
+Thumbs.db
+
+# Exécutables (au cas où ils sont mis à la racine par erreur)
+predict
+train
+*.out
+*.exe
+*.o
