@@ -4,6 +4,8 @@
 #include <fstream>
 #include <algorithm>
 #include <cmath>
+#include "../include/matplotlibcpp.h"
+namespace plt = matplotlibcpp;
 
 int main() {
     std::vector<double> mileages;
@@ -86,7 +88,7 @@ int main() {
     // MAE (Mean Absolute Error)
     double mae = 0.0;
 
-    for(int i = 0; i < m; ++i) {
+    for (int i = 0; i < m; ++i) {
         double prediction = final_theta0 + (final_theta1 * mileages[i]);
         double erreur_price_euro = std::abs(prices[i] - prediction);
 
@@ -99,13 +101,29 @@ int main() {
     // MAE (Mean Squared Error)
     double mse = 0.0;
 
-    for(int i = 0; i < m; ++i) {
+    for (int i = 0; i < m; ++i) {
         double prediction = final_theta0 + (final_theta1 * mileages[i]);
         double erreur_au_carre = (prices[i] - prediction) * (prices[i] - prediction);
         mse += erreur_au_carre;
     }
     mse /=  m;
-    std::cout << "MSE : " << mse << "€ en moyenne." << std::endl;
+    std::cout << "MSE : " << mse << std::endl;
+
+    // R²
+    double mean_price = 0;
+    for (int i = 0; i < m; i++) {
+        mean_price += prices[i];
+    }
+    mean_price /= m;
+
+    double variance = 0;
+    for (int i = 0; i < m; i++) {
+        variance += (prices[i] - mean_price) * (prices[i] - mean_price);
+    }
+    variance /= m;
+
+    double R2 = 1.0 - (mse / variance);
+    std::cout << "R²  : " << R2*100 << "%" << std::endl;
 
     return 0;
 }
